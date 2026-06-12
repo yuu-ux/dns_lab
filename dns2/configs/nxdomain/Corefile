@@ -1,0 +1,5 @@
+example.test:53 {
+    file /etc/coredns/db.example.test
+    log
+    errors
+}

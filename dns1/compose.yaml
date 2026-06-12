@@ -1,0 +1,43 @@
+services:
+    example_auth:
+        image: coredns/coredns:1.11.1
+        container_name: example_auth
+        restart: on-failure
+        volumes:
+            - './example_auth:/etc/coredns'
+        networks:
+            dns_test:
+                ipv4_address: $ipv4_example_auth
+        command: -conf /etc/coredns/Corefile -dns.port $dns_port
+
+    home_example_auth:
+        image: coredns/coredns:1.11.1
+        container_name: home_example_auth
+        restart: on-failure
+        volumes:
+            - './home_example_auth:/etc/coredns'
+        networks:
+            dns_test:
+                ipv4_address: $ipv4_home_example_auth
+        command: -conf /etc/coredns/Corefile -dns.port $dns_port
+
+    full_resolver:
+      ports:
+        - "1053:53/udp"
+        - "1053:53/tcp"
+      container_name: full_resolver
+      build:
+        context: './full_resolver'
+        dockerfile: Dockerfile
+      restart: on-failure
+      volumes:
+        - '/etc/unbound'
+        - './full_resolver:/etc/unbound/unbound.conf.d'
+      networks:
+        dns_test:
+          ipv4_address: $ipv4_full_resolver
+      command: /usr/sbin/unbound
+
+networks:
+    dns_test:
+        external: true

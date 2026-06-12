@@ -1,0 +1,36 @@
+$TTL 2d
+$ORIGIN example.org.
+
+; @ = example.org.
+; SOA
+; DNS サーバーの基礎情報
+
+; MNAME           ドメインのDNSサーバー名
+; RNAME           ドメイン管理者のメールアドレス
+; SERIAL          シリアル番号
+; REFRESH         更新間隔
+; RETRY           転送再試行時間
+; EXPIRE          レコード有効時間
+; MINIMUM         否定的キャッシュ有効時間
+
+@         IN      SOA   ns1.example.org. noc.example.org. (
+                                2022090400 ; serial number
+                                12h        ; refresh
+                                15m        ; update retry
+                                3w         ; expiry
+                                2h         ; minimum
+                                )
+
+; 何も記載がなければ @ を引き継ぐ
+; NS レコード
+; 権威DNSサーバーの指定
+
+               IN      NS      ns1.example.org.
+home           IN      NS      ns1.home
+
+; Aレコード
+; ホストとIPの対応表
+
+@              IN      A       172.19.0.11
+ns1            IN      A       172.19.0.21
+ns1.home       IN      A       172.19.0.31

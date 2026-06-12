@@ -1,0 +1,8 @@
+$ORIGIN example.test.
+@   IN SOA ns1.example.test. admin.example.test. (
+        2024010101 3600 900 86400 300 )
+    IN NS  ns1.example.test.
+ns1 IN A   127.0.0.1
+www IN A   192.0.2.1
+api IN A   192.0.2.2
+; app は意図的に欠落 → NXDOMAIN

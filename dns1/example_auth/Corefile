@@ -1,0 +1,5 @@
+example.org {
+    file /etc/coredns/zone/db.example.org
+    log
+    reload 5s
+}

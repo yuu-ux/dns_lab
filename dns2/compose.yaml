@@ -1,0 +1,21 @@
+services:
+  dns-nxdomain:
+    image: coredns/coredns:1.12.0
+    container_name: dns-nxdomain
+    ports:
+      - "15301:53/udp"
+      - "15301:53/tcp"
+    volumes:
+      - ./configs/nxdomain/Corefile:/etc/coredns/Corefile
+      - ./configs/nxdomain/db.example.test:/etc/coredns/db.example.test
+    command: ["-conf", "/etc/coredns/Corefile"]
+
+  dns-servfail:
+    image: coredns/coredns:1.12.0
+    container_name: dns-servfail
+    ports:
+      - "15302:53/udp"
+      - "15302:53/tcp"
+    volumes:
+      - ./configs/servfail/Corefile:/etc/coredns/Corefile
+    command: ["-conf", "/etc/coredns/Corefile"]
